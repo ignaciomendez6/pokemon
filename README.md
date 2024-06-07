@@ -17,9 +17,13 @@ Navigate to File > Add Packages.
 Add the following packages using their respective URLs:
 
 Quick: https://github.com/Quick/Quick
+
 Nimble: https://github.com/Quick/Nimble
+
 Swift Snapshot Testing: https://github.com/pointfreeco/swift-snapshot-testing
+
 Swift Package Manager Packages
+
 Quick: Quick is a unit testing framework designed to make writing tests fast and easy. It provides a clean and readable syntax for describing the expected behavior of your code.
 
 Nimble: Nimble is an assertion framework that integrates seamlessly with Quick. It allows writing clear and expressive assertions, making tests more readable and maintainable.
