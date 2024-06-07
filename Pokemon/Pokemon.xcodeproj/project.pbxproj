@@ -98,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F05EFA812C1394C70045D354 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				F0FA75632C0F4DF100613D80 /* List */,
+				F0FA75692C0F5A0D00613D80 /* Detail */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
 		F0E700092C13839D00DE728F /* UItests */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,12 +158,11 @@
 		F0FA75322C0F4A3500613D80 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				F05EFA812C1394C70045D354 /* VC */,
 				F0FA757B2C12019100613D80 /* Utils */,
 				F0FA75712C1092A500613D80 /* Repository */,
 				F0FA75762C10EE0E00613D80 /* VM */,
 				F0FA756E2C10912500613D80 /* Models */,
-				F0FA75692C0F5A0D00613D80 /* Detail */,
-				F0FA75632C0F4DF100613D80 /* List */,
 				F0FA75332C0F4A3500613D80 /* AppDelegate.swift */,
 				F0FA75352C0F4A3500613D80 /* SceneDelegate.swift */,
 				F0FA753C2C0F4A3700613D80 /* Assets.xcassets */,
