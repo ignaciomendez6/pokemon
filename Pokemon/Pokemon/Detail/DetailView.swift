@@ -15,8 +15,6 @@ final class DetailView: UIView {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
-        let url: URL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png")!
-        image.load(url: url)
         image.contentMode = .scaleAspectFill
         return image
     }()
@@ -37,8 +35,8 @@ final class DetailView: UIView {
         textView.isEditable = false
         textView.isScrollEnabled = true
         textView.showsVerticalScrollIndicator = true
-        textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget elementum ligula. Donec iaculis rhoncus felis, eu cursus lectus. Sed laoreet tristique ex, a lacinia elit pellentesque id. Integer et tellus tristique, pellentesque eros ac, pharetra ex. Nullam vestibulum tincidunt erat id consectetur. Sed nec sollicitudin risus. In condimentum turpis et tortor viverra, sit amet tempus justo consectetur. Integer posuere, justo in commodo fermentum, massa augue rutrum nulla, sit amet facilisis purus ligula a risus."
         textView.textColor = .black
+        textView.font = UIFont.systemFont(ofSize: 16)
         return textView
     }()
     
@@ -52,6 +50,8 @@ final class DetailView: UIView {
     }
     
     private func setupView() {
+        
+        backgroundColor = .white
         
         [bigPokemonImage, descriptionTitle, descriptionText] .forEach { view in
             addSubview(view)
@@ -73,6 +73,20 @@ final class DetailView: UIView {
             descriptionText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             descriptionText.heightAnchor.constraint(equalToConstant: 250),
         ])
+    }
+    
+    func configureDetail(vm: PokemonVMprotocol, index: Int) {
+        if let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/\(index+1).png") {
+            bigPokemonImage.load(url: url, placeholderNamed: "placeholderImage")
+        } else {
+            bigPokemonImage.image = UIImage(named: "defaultImage")
+        }
+        
+        if let height = vm.pokemon?.height, let weight = vm.pokemon?.weight, let moves = vm.pokemon?.moves {
+            self.descriptionText.text = String(format: "Height: %.1fm, Weight: %.1fkg.\nMoves:\n", Float(height) / 10, Float(weight) / 10)
+            let moveNames = moves.compactMap { $0.move.name }
+            self.descriptionText.text += moveNames.joined(separator: ", ")
+        }
     }
 }
 

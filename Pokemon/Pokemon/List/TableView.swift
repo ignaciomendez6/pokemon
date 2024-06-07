@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ListView: UIView {
+final class TableView: UIView {
     
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -21,7 +21,6 @@ final class ListView: UIView {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.rowHeight = 100
-        //table.backgroundColor = .blue
         table.backgroundColor = UIColor(red: 0.92, green: 0.96, blue: 0.98, alpha: 1)
         return table
     }()
@@ -52,7 +51,6 @@ final class ListView: UIView {
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
-            
         ])
     }
 }

@@ -7,16 +7,14 @@
 
 import UIKit
 
-class ItemView: UITableViewCell {
+class CellView: UITableViewCell {
     
-    //view for cell
     private lazy var viewCell: UIView = {
-        let view2 = UIView()
-        view2.translatesAutoresizingMaskIntoConstraints = false
-        view2.backgroundColor = .white
-        layer.cornerRadius = 5
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
         clipsToBounds = true
-        return view2
+        return view
     }()
     
     private lazy var pokemonImage: UIImageView = {
@@ -24,29 +22,23 @@ class ItemView: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
-        let url: URL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png")!
-        image.load(url: url)
         image.contentMode = .scaleAspectFill
         return image
     }()
     
-    //label title
-    lazy var labelTitle: UILabel = {
+    private lazy var labelTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
-        label.text = "Charmander"
         return label
     }()
     
-    //label author
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
-        label.text = "Peso y altura"
         return label
     }()
     
@@ -89,23 +81,16 @@ class ItemView: UITableViewCell {
             
         ])
     }
-}
-
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
+    
+    func configureItem(vm: PokemonsVMprotocol, index: Int) {
+        if let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(index+1).png") {
+            pokemonImage.load(url: url, placeholderNamed: "placeholderImage")
+        } else {
+            pokemonImage.image = UIImage(named: "defaultImage")
         }
+        
+        labelTitle.text = vm.pokemons?.results[index].name.capitalized
+        
+        descriptionLabel.text = "Pokemon number: \(String(index+1))"
     }
 }
-
-
-
-
-
