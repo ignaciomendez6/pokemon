@@ -10,6 +10,18 @@ import UIKit
 
 final class DetailView: UIView {
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var bigPokemonImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +45,7 @@ final class DetailView: UIView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isEditable = false
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = false
         textView.showsVerticalScrollIndicator = true
         textView.textColor = .black
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -50,28 +62,40 @@ final class DetailView: UIView {
     }
     
     private func setupView() {
-        
         backgroundColor = .white
         
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
         [bigPokemonImage, descriptionTitle, descriptionText] .forEach { view in
-            addSubview(view)
+            contentView.addSubview(view)
         }
         
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             
-            bigPokemonImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            bigPokemonImage.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            bigPokemonImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            bigPokemonImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             bigPokemonImage.heightAnchor.constraint(equalToConstant: 250),
             bigPokemonImage.widthAnchor.constraint(equalToConstant: 250),
             
             descriptionTitle.topAnchor.constraint(equalTo: bigPokemonImage.bottomAnchor, constant: 25),
-            descriptionTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            descriptionTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            descriptionTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            descriptionTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
             
             descriptionText.topAnchor.constraint(equalTo: descriptionTitle.bottomAnchor, constant: 25),
-            descriptionText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            descriptionText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            descriptionText.heightAnchor.constraint(equalToConstant: 250),
+            descriptionText.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            descriptionText.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
+            descriptionText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25)
         ])
     }
     
